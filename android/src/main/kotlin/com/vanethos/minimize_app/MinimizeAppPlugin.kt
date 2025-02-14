@@ -9,7 +9,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
 
 
 /** MinimizeAppPlugin */
@@ -38,16 +37,6 @@ class MinimizeAppPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {}
-
-    companion object {
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "minimize_app")
-            val plugin = MinimizeAppPlugin();
-            plugin.activity = registrar.activity()
-            channel.setMethodCallHandler(plugin)
-        }
-    }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         this.activity?.moveTaskToBack(true)
